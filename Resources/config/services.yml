@@ -1,0 +1,5 @@
+services:
+    sir_trevor_twig_extension:
+        class: IrishDistillers\SirTrevorTwig\Extension
+        tags:
+            - { name: twig.extension }

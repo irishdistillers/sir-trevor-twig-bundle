@@ -1,0 +1,13 @@
+{
+    "name" : "irishdistillers/sir-trevor-twig-bundle",
+    "description": "IDL Sir Trevor Twig Bundle",
+    "type" : "symfony-bundle",
+    "require": {
+        "twig/extensions": "dev-master"
+    },
+    "autoload" : {
+        "psr-4": {
+            "IrishDistillers\\SirTrevorTwig\\": ""
+        }
+    }
+}
