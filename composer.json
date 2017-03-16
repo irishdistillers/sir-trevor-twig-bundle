@@ -3,7 +3,8 @@
     "description": "IDL Sir Trevor Twig Bundle",
     "type" : "symfony-bundle",
     "require": {
-        "twig/extensions": "dev-master"
+        "twig/twig": "^2.2",
+        "twig/extensions": "^1.4.1"
     },
     "autoload" : {
         "psr-4": {

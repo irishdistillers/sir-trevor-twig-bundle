@@ -1,5 +1,6 @@
 services:
     sir_trevor_twig_extension:
         class: IrishDistillers\SirTrevorTwig\Extension
+        public: false
         tags:
             - { name: twig.extension }

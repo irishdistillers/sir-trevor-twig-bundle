@@ -4,28 +4,27 @@ namespace IrishDistillers\SirTrevorTwig;
 
 class Extension extends \Twig_Extension
 {
-    public function initRuntime(\Twig_Environment $environment)
-    {
-        parent::initRuntime($environment);
-
-        $this->_env = $environment;
-    }
-
     public function getFunctions() : array
     {
         return [
-            'sirtrevor' => new \Twig_Function_Method($this, 'sirtrevor')
+            'sirtrevor' => new \Twig_SimpleFunction(
+                'sirtrevor',
+                [$this, 'sirtrevor'],
+                [
+                    'needs_environment' => true,
+                    'is_safe' => ['html']
+                ])
         ];
     }
 
-    public function sirtrevor(\stdClass $content) : string
+    public function sirtrevor(\Twig_Environment $environment, \stdClass $content) : string
     {
         return implode(
             "\n",
             array_map(
-                function($block) {
+                function($block) use ($environment) {
                     try {
-                        return $this->_env->render(
+                        return $environment->render(
                             'SirTrevorTwig:_snippets:sirtrevor/'.$block->type.'.html.twig',
                             ['data' => $block->data]
                         );
