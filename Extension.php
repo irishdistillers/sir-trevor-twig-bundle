@@ -19,7 +19,8 @@ class Extension extends \Twig_Extension
                 [
                     'needs_environment' => true,
                     'is_safe' => ['html']
-                ])
+                ]
+            )
         ];
     }
 
@@ -28,8 +29,11 @@ class Extension extends \Twig_Extension
         return implode(
             "\n",
             array_map(
-                function($block) use ($environment, $options) {
+                function ($block) use ($environment, $options) {
                     try {
+                        // Deep copy hack, otherwise the rand value gets overwritten
+                        $block = unserialize(serialize($block));
+
                         $block->data->rand = mt_rand();
                         $this->loadedBlocks[] = $block;
 
