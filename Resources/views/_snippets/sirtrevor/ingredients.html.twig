@@ -1,7 +1,5 @@
 <ul>
     {% for item in data.listItems %}
-        <li>
-            {{ item.content }}
-        </li>
+    <li itemprop="recipeIngredient">{{ item.content }}</li>
     {% endfor %}
 </ul>
