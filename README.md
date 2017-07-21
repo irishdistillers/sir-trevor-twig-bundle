@@ -11,7 +11,7 @@ Add the following to your `composer.json`:
 }]
 ```
 
-and 
+and
 
 ```json
 "require": {
@@ -56,6 +56,8 @@ To override or add your own custom snippets, just add a file named `{$snippet_ty
 following types:
 
 - `captionable_image`
+- `ingredients`
+- `method`
 - `google_maps`
 - `heading`
 - `list`
