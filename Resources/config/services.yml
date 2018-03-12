@@ -2,5 +2,20 @@ services:
     sir_trevor_twig_extension:
         class: IrishDistillers\SirTrevorTwig\Extension
         public: false
+        arguments:
+            - "@sir_trevor.internal_renderer"
         tags:
             - { name: twig.extension }
+
+    # We need two Renderer classes, one for the Extension to use and a public facing one
+    # The internal class cannot receive a `templating` argument because it creates a
+    # circular dependency. Instead it receives the templating engine as a method argument.
+
+    sir_trevor.internal_renderer:
+        public: false
+        class: IrishDistillers\SirTrevorTwig\SirTrevor
+
+    sir_trevor.renderer:
+        class: IrishDistillers\SirTrevorTwig\SirTrevor
+        arguments:
+            - "@templating"

@@ -2,13 +2,19 @@
 
 namespace IrishDistillers\SirTrevorTwig;
 
+use IrishDistillers\SirTrevorTwig\SirTrevor;
+
 class Extension extends \Twig_Extension
 {
-    private $loadedBlocks = [];
+    /**
+     * @var IrishDistillers\SirTrevorTwig\SirTrevor
+     */
+    protected $sirTrevor;
 
-    private $defaultOptions = [
-        'mobile' => false
-    ];
+    public function __construct(SirTrevor $sirTrevor)
+    {
+        $this->sirTrevor = $sirTrevor;
+    }
 
     public function getFunctions() : array
     {
@@ -26,35 +32,11 @@ class Extension extends \Twig_Extension
 
     public function sirtrevor(\Twig_Environment $environment, \stdClass $content, array $options = []) : string
     {
-        return implode(
-            "\n",
-            array_map(
-                function ($block) use ($environment, $options) {
-                    try {
-                        // Deep copy hack, otherwise the rand value gets overwritten
-                        $block = unserialize(serialize($block));
-
-                        $block->data->rand = mt_rand();
-                        $this->loadedBlocks[] = $block;
-
-                        return $environment->render(
-                            'SirTrevorTwig:_snippets:sirtrevor/'.$block->type.'.html.twig',
-                            [
-                                'data' => $block->data,
-                                'options' => array_merge($this->defaultOptions, $options)
-                            ]
-                        );
-                    } catch (\Twig_Error_Loader $exception) {
-                        return sprintf('<!-- Snippet type: "%s" not found -->', $block->type);
-                    }
-                },
-                $content->data
-            )
-        );
+        return $this->sirTrevor->render($content, $options, $environment);
     }
 
     public function getLoadedBlocks() : array
     {
-        return $this->loadedBlocks;
+        return $this->sirTrevor->getLoadedBlocks();
     }
 }

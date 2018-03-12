@@ -6,19 +6,12 @@ Add the following to your `composer.json`:
 
 ```json
 "repositories": [{
-    "type": "vcs",
-    "url": "git@github.com:irishdistillers/sir-trevor-twig-bundle.git"
+    "type": "composer",
+    "url": "https://satis.idlcloud.com/"
 }]
 ```
 
-and
-
-```json
-"require": {
-    "irishdistillers/sir-trevor-twig-bundle": "dev-master"
-```
-
-Then run `composer update irishdistillers/sir-trevor-twig-bundle`.
+Then run `composer require irishdistillers/sir-trevor-twig-bundle`.
 
 Finally, add the following to your `app/AppKernel.php` bundles section:
 
@@ -47,6 +40,16 @@ return $this->render(
 <div>
     {{ sirtrevor(content) | raw }}
 </div>
+```
+
+You can also use the standalone `sir_trevor.renderer` to render content outside of a template:;
+
+```php
+public function renderBlockAction(\IrishDistillers\SirTrevorTwig\SirTrevor $sirTrevor)
+{
+    $sirTrevorContent = $this->someApi->fetchContent();
+    return $this->sirTrevor->render($sirTrevorContent);
+}
 ```
 
 ## Overiding snippets
