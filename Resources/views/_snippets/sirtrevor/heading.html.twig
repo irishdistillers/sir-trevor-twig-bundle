@@ -1,7 +1,11 @@
 {% if data.headingType is not defined or data.headingType == 'H2' %}
     <h2>{{ data.text }}</h2>
+{% elseif data.headingType == 'H1' %}
+    <h1>{{ data.text }}</h1>
 {% elseif data.headingType == 'H3' %}
     <h3>{{ data.text }}</h3>
 {% elseif data.headingType == 'H4' %}
     <h4>{{ data.text }}</h4>
+{% elseif data.headingType == 'H5' %}
+    <h5>{{ data.text }}</h5>
 {% endif %}
