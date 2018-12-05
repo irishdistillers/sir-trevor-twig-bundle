@@ -1,1 +1,3 @@
-{{ data.html | raw }}
+{% if data.html is defined %}
+    {{ data.html | raw }}
+{% endif %}

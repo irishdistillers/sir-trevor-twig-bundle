@@ -1,7 +1,9 @@
-<ul>
-    {% for item in data.listItems %}
-        <li>
-            {{ item.content }}
-        </li>
-    {% endfor %}
-</ul>
+{% if data.listItems is defined %}
+    <ul>
+        {% for item in data.listItems %}
+            <li>
+                {{ item.content }}
+            </li>
+        {% endfor %}
+    </ul>
+{% endif %}
