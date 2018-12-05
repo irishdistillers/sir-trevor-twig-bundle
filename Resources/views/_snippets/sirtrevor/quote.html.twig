@@ -1,4 +1,10 @@
-<blockquote>
-    {{ data.text | raw }}
-  <cite>{{ data.cite }}</cite>
-</blockquote>
+{% if data.text is defined or data.cite is defined %}
+    <blockquote>
+        {% if data.text is defined %}
+            {{ data.text | raw }}
+        {% endif %}
+        {% if data.cite is defined %}
+            <cite>{{ data.cite }}</cite>
+        {% endif %}
+    </blockquote>
+{% endif %}

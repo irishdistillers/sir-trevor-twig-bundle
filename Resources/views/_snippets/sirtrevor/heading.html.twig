@@ -1,11 +1,16 @@
+{% set dataText = '' %}
+{% if data.text is defined %}
+    {% set dataText = data.text %}
+{% endif %}
+
 {% if data.headingType is not defined or data.headingType == 'H2' %}
-    <h2>{{ data.text }}</h2>
+    <h2>{{ dataText }}</h2>
 {% elseif data.headingType == 'H1' %}
-    <h1>{{ data.text }}</h1>
+    <h1>{{ dataText }}</h1>
 {% elseif data.headingType == 'H3' %}
-    <h3>{{ data.text }}</h3>
+    <h3>{{ dataText }}</h3>
 {% elseif data.headingType == 'H4' %}
-    <h4>{{ data.text }}</h4>
+    <h4>{{ dataText }}</h4>
 {% elseif data.headingType == 'H5' %}
-    <h5>{{ data.text }}</h5>
+    <h5>{{ dataText }}</h5>
 {% endif %}
