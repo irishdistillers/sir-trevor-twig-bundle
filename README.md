@@ -58,7 +58,9 @@ To override or add your own custom snippets, just add a file named `{$snippet_ty
 `app/Resources/SirTrevorTwig/views/_snippets/sirtrevor/` folder in your bundle. By default you get the
 following types:
 
+- `call_to_action`
 - `captionable_image`
+- `giphy`
 - `ingredients`
 - `method`
 - `google_maps`
@@ -66,5 +68,7 @@ following types:
 - `list`
 - `quote`
 - `soundcloud`
+- `spotify`
+- `subheading`
 - `text`
 - `youtube`

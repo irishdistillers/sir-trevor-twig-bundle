@@ -1,4 +1,69 @@
-{% if data.lat is defined and data.lng is defined %}
-    <iframe src="https://www.google.com/maps?q={{ data.lat }},{{ data.lng }}&output=embed" width="600" height="450"
-            frameborder="0" style="border:0" allowfullscreen></iframe>
+{% if data.locations is defined and data.locations is not empty %}
+<script type="text/javascript">
+if(typeof google === 'undefined' || typeof google.maps === 'undefined'){
+    document.write('<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key={{google_maps_key}}"></'+'script>');
+}
+</script>
+
+{% set map_id = random(1000) %}
+
+<script type="text/javascript">
+    google.maps.event.addDomListener(window, 'load', init);
+    function init() {
+
+        var mapOptions = 'mapOptions_{{map_id}}';
+
+        window[mapOptions] = {
+            mapTypeControl: false,
+            zoom: {{ data.zoom_level }},
+            scrollwheel: false,
+            center: new google.maps.LatLng(0, 0),
+            styles: {% include("SirTrevorTwig::_snippets/sirtrevor/google_maps_styles.html.twig") %}
+        };
+
+        var mapElement = 'mapElement_{{map_id}}';
+        window[mapElement] = document.getElementById('map-{{map_id}}');
+
+        var map = 'map_{{map_id}}';
+        window[map] = new google.maps.Map(window[mapElement], window[mapOptions] );
+
+        var infowindow = new google.maps.InfoWindow();
+        var copy = "";
+
+        var gLocation = {};
+        {% for gLocation in data.locations %}
+            copy = "{{ gLocation.copy is defined ? gLocation.copy|markdown : '' }}";
+            gLocation = {
+                lat: {{gLocation.lat | default(0)}},
+                lng: {{gLocation.lng | default(0)}},
+                pin: "{{gLocation.pin | default("") }}"
+            }
+
+            marker = new google.maps.Marker({
+                position: new google.maps.LatLng(gLocation.lat, gLocation.lng),
+                map: window[map],
+                title: gLocation.copy
+            });
+            if(copy != ""){
+                google.maps.event.addListener(marker,'mouseover', (function(marker,copy,infowindow){
+                    return function() {
+                        infowindow.setContent(copy);
+                        infowindow.open(window[map],marker);
+                    };
+                })(marker,copy,infowindow));
+            }
+
+        {% endfor %}
+        window[map].setCenter(marker.getPosition()); // sets center without animation
+    }
+</script>
+
+<div class="row mb-2 mb-lg-4">
+    <div class="col-0 col-lg-1"></div>
+    <div class="col-12 col-lg-10 google-map">
+        <div class="map">
+            <div id="map-{{map_id}}" style="width: 100%; height: 100%"></div>
+        </div>
+    </div>
+</div>
 {% endif %}

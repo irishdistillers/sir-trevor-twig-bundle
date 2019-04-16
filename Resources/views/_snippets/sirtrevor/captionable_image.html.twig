@@ -1,1 +1,20 @@
-<img src="{{ data.file }}" align="{{ data.alignment }}" alt="{{ data.text }}"><br>
+<div class="{% if data.alignment=='left' %}even{% elseif data.alignment=='right' %}odd{% else %}center{% endif %}">
+    <img src="{{ data.file }}" title="{% if data.seo_title is defined %} {{data.seo_title}}{% endif %}" alt="{% if data.seo_alt_text is defined %} {{data.seo_alt_text}}{% endif %}" />
+
+    <div class="content">
+        {% if data.heading | default('') %}
+            <p>{{ data.heading | default('') }}</p>
+        {% endif %}
+
+        {% if data.text %}
+            <p>{{ data.text | raw}}
+            </p>
+        {% endif %}
+
+        {% if data.link is defined and data.link | length > 0 %}
+            <p>
+                <a href="{{ data.link }}">{{ data.cta_text }}</a>
+            </p>
+        {% endif %}
+    </div>
+</div>
