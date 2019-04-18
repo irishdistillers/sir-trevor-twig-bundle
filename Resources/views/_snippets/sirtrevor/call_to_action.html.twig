@@ -1,0 +1,5 @@
+{% if data.link is defined and data.link %}
+  <p>
+    <a href="{{ data.link }}" class="normal-button">{{ data.text | default('click here!') }}</a>
+  </p>
+{% endif %}
