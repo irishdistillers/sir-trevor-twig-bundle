@@ -1,7 +1,7 @@
 {% if data.listItems is defined %}
     <ul>
         {% for item in data.listItems %}
-            <li itemprop="recipeInstructions">{{ item.content }}</li>
+            <li itemprop="recipeInstructions" itemscope itemtype="http://schema.org/HowToStep"><span itemprop="text">{{ item.content }}</span></li>
         {% endfor %}
     </ul>
 {% endif %}
