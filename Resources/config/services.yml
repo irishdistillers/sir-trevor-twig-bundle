@@ -1,5 +1,5 @@
 services:
-    sir_trevor_twig_extension:
+    IrishDistillers\SirTrevorTwig\Extension:
         class: IrishDistillers\SirTrevorTwig\Extension
         public: false
         arguments:
